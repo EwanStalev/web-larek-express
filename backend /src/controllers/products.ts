@@ -1,8 +1,8 @@
-import { Request, Response, NextFunction } from "express";
-import { Error as MongooseError } from "mongoose";
-import Product from "../models/product";
-import { BadRequestError } from "../errors/bad-request-error";
-import { ConflictError } from "../errors/conflict-error";
+import { Request, Response, NextFunction } from 'express';
+import { Error as MongooseError } from 'mongoose';
+import Product from '../models/product';
+import { BadRequestError } from '../errors/bad-request-error';
+import { ConflictError } from '../errors/conflict-error';
 
 export const listProducts = async (
   _req: Request,
@@ -27,11 +27,11 @@ export const addProduct = async (
     return res.status(201).send(product);
   } catch (err) {
     if (err instanceof MongooseError.ValidationError) {
-      return next(new BadRequestError("Validation error while creating a product"));
+      return next(new BadRequestError('Validation error while creating a product'));
     }
 
-    if (err instanceof Error && err.message.includes("E11000")) {
-      return next(new ConflictError("A product with this title already exists"));
+    if (err instanceof Error && err.message.includes('E11000')) {
+      return next(new ConflictError('A product with this title already exists'));
     }
 
     return next(err);

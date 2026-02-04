@@ -1,7 +1,7 @@
-import { Request, Response, NextFunction } from "express";
-import { faker } from "@faker-js/faker";
-import Product from "../models/product";
-import { BadRequestError } from "../errors/bad-request-error";
+import { Request, Response, NextFunction } from 'express';
+import { faker } from '@faker-js/faker';
+import Product from '../models/product';
+import { BadRequestError } from '../errors/bad-request-error';
 
 const placeOrder = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -10,11 +10,11 @@ const placeOrder = async (req: Request, res: Response, next: NextFunction) => {
     const products = await Product.find({ _id: { $in: items } });
 
     if (products.length !== items.length) {
-      return next(new BadRequestError("Some products were not found"));
+      return next(new BadRequestError('Some products were not found'));
     }
 
     if (products.some((product) => product.price === null)) {
-      return next(new BadRequestError("Some products have no price set"));
+      return next(new BadRequestError('Some products have no price set'));
     }
 
     const calculatedTotal = products.reduce(
@@ -23,7 +23,7 @@ const placeOrder = async (req: Request, res: Response, next: NextFunction) => {
     );
 
     if (Math.abs(calculatedTotal - total) > 0.01) {
-      return next(new BadRequestError("Order total mismatch"));
+      return next(new BadRequestError('Order total mismatch'));
     }
 
     const orderId = faker.string.uuid();

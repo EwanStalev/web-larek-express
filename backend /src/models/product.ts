@@ -1,4 +1,4 @@
-import mongoose, { Schema, Document, Model } from "mongoose";
+import mongoose, { Schema, Document, Model } from 'mongoose';
 
 export interface IFile {
   fileName: string;
@@ -45,7 +45,7 @@ const productSchema: Schema<IProduct> = new mongoose.Schema(
 );
 
 const Product: Model<IProduct> = mongoose.model<IProduct>(
-  "product",
+  'product',
   productSchema,
 );
 

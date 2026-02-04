@@ -1,10 +1,10 @@
-import { celebrate, Joi, Segments } from "celebrate";
-import { RequestHandler } from "express";
+import { celebrate, Joi, Segments } from 'celebrate';
+import { RequestHandler } from 'express';
 
 export const validateOrderRequest: RequestHandler = celebrate({
   [Segments.BODY]: Joi.object()
     .keys({
-      payment: Joi.string().valid("card", "online").required(),
+      payment: Joi.string().valid('card', 'online').required(),
       email: Joi.string().email().required(),
       phone: Joi.string().required(),
       address: Joi.string().required(),
